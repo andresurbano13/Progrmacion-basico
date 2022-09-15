@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=ZCOOL+QingKe+HuangYou&display=swap');
+
+body{
+    background-color: #400D51;
+}
+
+seleccionar-mascota {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+}
+
+.titulo {
+    font-family: 'Press Start 2P', cursive;
+    color:#31E1F7;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.subtitulo {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    color: #FF7777;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.tarjetas{
+    display: flex;
+    gap: 10px;
+}
+
+.tarjeta-de-mokepon {
+    width: 219px;
+    height: 185px;
+    background: silver;
+    padding: 6px;
+    box-sizing: border-box;
+    margin: 10px;
+    border: 1px solid hotpink;
+    border-radius: 20px;
+    display: flex;
+    color: white;
+    flex-direction: column-reverse;
+    align-items: center;
+    
+}
+
+.tarjeta-de-mokepon img{
+    width: 120px;
+    height: 120px;
+    display: flex;
+}
+
+input {
+    display: none;
+}
+
+#boton-mascota {
+    color: aliceblue;
+    width: 80px;
+    height: 30px;
+    padding: 3px;
+    background: lightpink;
+    border: 1px gold solid;
+    box-sizing: border-box;
+    margin: 10px;
+    
+}

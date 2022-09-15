@@ -5,26 +5,42 @@
         <title>MOKEPON!</title>
         
         <script src="./js/mokepon.js"></script>
+        <link rel="stylesheet" href="./style.css">
 
     </head>
-    <body>
-        <H1>MOKEPON 🔥💧🌱</H1>
+    <body>    
         <section id="seleccionar-mascota">
-            <h2>elige tu mascota</h2>
+            <H1 class="titulo">Liga de leyendas</H1>
 
-            <label for="dercharman">dercharman</label>
-            <input type="radio" name="mascota" id="dercharman"/>
+            <h2 class="subtitulo">Elige tu campeon</h2>
 
-            <label for="scuarul">scuarul</label>
-            <input type="radio" name="mascota" id="scuarul"/>
+            <div class="tarjetas">
+                <label class="tarjeta-de-mokepon" for="dercharman">
+                    <p>Laquemona</p>
+                    <img src="./assets/OIP.jpg" alt="OIP" srcset="">
+                    </label>
+                <input type="radio" name="mascota" id="dercharman"/>
+    
+                <label class="tarjeta-de-mokepon" for="scuarul">
+                    <p>Guaterlove</p>
+                    <img src="./assets/pyke.jpg" alt="pyke" srcset="">
+                    </label>
+                <input type="radio" name="mascota" id="scuarul"/>
+    
+                <label class="tarjeta-de-mokepon" for="sorbulba">
+                    <p>Guaterlove</p>
+                    <img src="./assets/malpite.jpg" alt="malpite" srcset="">
+                    </label>
+                <input type="radio" name="mascota" id="sorbulba"/>
 
-            <label for="sorbulba">sorbulba</label>
-            <input type="radio" name="mascota" id="sorbulba"/>
+            </div>
 
             <button id="boton-mascota">Seleccionar</button>
         </section>
         
         <section id="seleccionar-ataque">
+            <H1 class="titulo">MOKEPON 🔥💧🌱</H1>
+
             <h2>elige tu ataque:</h2>
 
             <p>tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas.</p>
