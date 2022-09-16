@@ -30,7 +30,7 @@ function seleccionarMascotaJugador() {
        sectionmascota.style.display = 'none'
 
        let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-       sectionSeleccionarAtaque.style.display = 'block'
+       sectionSeleccionarAtaque.style.display = 'flex'
 
    let inputdercharman = document.getElementById('dercharman')
    let inputscuarul = document.getElementById('scuarul')
@@ -133,22 +133,29 @@ function revisarVidas(){
        }
 }
 
-function crearMensaje(combate){
-       let sectionMensajes = document.getElementById('mensajes')
+function crearMensaje(resultado){
+       let sectionMensajes = document.getElementById('resultado')
+       let ataqueDelJugador = document.getElementById('ataque-del-jugador')
+       let ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
 
-       let parrafo = document.createElement('p')
-       parrafo.innerHTML = 'tu mascota ataco con ' + ataqueJugador + ', la mascota de tu enemigo ataco con ' + ataqueEnemigo + ' >' + combate
+       let nuevoAtaqueJugador = document.createElement('p')
+       let nuevoAtaqueEnemigo = document.createElement('p')
 
-       sectionMensajes.appendChild(parrafo)
+       sectionMensajes.innerHTML = resultado
+       nuevoAtaqueJugador.innerHTML = ataqueDelJugador
+       nuevoAtaqueEnemigo.innerHTML = ataqueDelEnemigo
+
+       // let parrafo = document.createElement('p')
+       // parrafo.innerHTML = 'tu mascota ataco con ' + ataqueJugador + ', la mascota de tu enemigo ataco con ' + ataqueEnemigo + ' >' + combate
+
+       ataqueDelJugador.appendChild(nuevoAtaqueJugador)
+       ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
 }
 
 function crearMensajeFinal(resuluadoFinal){
-       let sectionMensajes = document.getElementById('mensajes')
+       let sectionMensajes = document.getElementById('resultado')
 
-       let parrafo = document.createElement('p')
-       parrafo.innerHTML = resuluadoFinal
-
-       sectionMensajes.appendChild(parrafo)
+       sectionMensajes.innerHTML = resuluadoFinal
 
        botonFuego = document.getElementById('boton-fuego')
        botonFuego.disabled = true

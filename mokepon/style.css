@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=ZCOOL+QingKe+HuangYou&display=swap');
 
-body{
+body {
     background-color: #400D51;
 }
 
-seleccionar-mascota {
+#seleccionar-mascota {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +19,7 @@ seleccionar-mascota {
     font-size: 32px;
     display: flex;
     justify-content: center;
+    margin: 34px;
     
 }
 
@@ -28,47 +29,96 @@ seleccionar-mascota {
     font-size: 24px;
     display: flex;
     justify-content: center;
+    margin-top: 28px;
 }
 
 .tarjetas{
     display: flex;
-    gap: 10px;
+    gap: 14px;
+    justify-content: center;
 }
 
 .tarjeta-de-mokepon {
-    width: 219px;
-    height: 185px;
-    background: silver;
-    padding: 6px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    width: 144px;
+    height: 188px;
+    background: transparent;
+    padding: 0px;
     box-sizing: border-box;
-    margin: 10px;
-    border: 1px solid hotpink;
+    margin: 8px;
+    border: 1px solid #D800A6;
     border-radius: 20px;
     display: flex;
     color: white;
     flex-direction: column-reverse;
     align-items: center;
+    border-width: medium;
     
 }
 
 .tarjeta-de-mokepon img{
-    width: 120px;
-    height: 120px;
+    width: 124px;
+    height: 124px;
     display: flex;
+}
+
+#boton-mascota {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    color: #31E1F7;
+    width: 95px;
+    height: 38px;
+    background: #400D51;
+    border: 1px solid #D800A6;
+    border-width: medium;
+    margin-top: 28px;
 }
 
 input {
     display: none;
 }
 
-#boton-mascota {
-    color: aliceblue;
-    width: 80px;
-    height: 30px;
-    padding: 3px;
-    background: lightpink;
-    border: 1px gold solid;
+#seleccionar-ataque{
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-de-ataque{
+    background-color: transparent;
+    padding: 0px;
     box-sizing: border-box;
-    margin: 10px;
-    
+    border: 1px solid #D800A6;
+    width: 130px;
+    height: 145px;
+    margin: 8px;
+    color: white;
+    flex-direction: column-reverse;
+    align-items: center;
+    border-width: medium;
+    justify-content: center;
+    display: inline-flex;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+.boton-de-ataque img{
+    width: 124px;
+    height: 124px;
+    display: flex;
+}
+
+#mensajes {
+    width: 120px;
+    background: #400D51;
+    padding: 20px;
+    border: double #D800A6;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#boton-reiniciar{
+    border: 1px solid #D800A6;
+    border-radius: 20px;
+    color: #31E1F7;
+    background-color: #400D51;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
 }

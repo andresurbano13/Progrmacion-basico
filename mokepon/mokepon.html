@@ -9,6 +9,7 @@
 
     </head>
     <body>    
+        
         <section id="seleccionar-mascota">
             <H1 class="titulo">Liga de leyendas</H1>
 
@@ -28,40 +29,49 @@
                 <input type="radio" name="mascota" id="scuarul"/>
     
                 <label class="tarjeta-de-mokepon" for="sorbulba">
-                    <p>Guaterlove</p>
+                    <p>Terron</p>
                     <img src="./assets/malpite.jpg" alt="malpite" srcset="">
                     </label>
                 <input type="radio" name="mascota" id="sorbulba"/>
 
             </div>
-
+            
             <button id="boton-mascota">Seleccionar</button>
         </section>
         
         <section id="seleccionar-ataque">
-            <H1 class="titulo">MOKEPON 🔥💧🌱</H1>
 
-            <h2>elige tu ataque:</h2>
+            <H1 class="titulo">Liga de leyendas</H1>
 
-            <p>tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas.</p>
-            <p>la mascota enemiga <span id="mascota-enemiga"></span> tiene <span id="vidas-enemigo">3</span> vidas.</p>
+            <h2 class="subtitulo">elige tu ataque</h2>
 
-            <p>
-                <button id="boton-fuego">fuego 🔥</button>
-                <button id="boton-agua">agua 💧</button>
-                <button id="boton-tierra">tierra 🌱</button>
-            </p>
+            <div>
+                <button id="boton-fuego" class="boton-de-ataque">Fuego
+                    <img src="./assets/fuego.jpg" alt="OIP" srcset="">
+                </button>
+                <button id="boton-agua" class="boton-de-ataque">Agua
+                    <img src="./assets/agua.webp" alt="OIP" srcset="">
+                </button>
+                <button id="boton-tierra" class="boton-de-ataque">Tierra
+                    <img src="./assets/tierra.png" alt="OIP" srcset="">
+                </button>
+            </div>
 
-        </section>
+                <div id="mensajes">
+                    <p id="resultado">Dale mi papa</p>
 
-        <section id="mensajes">
-            
-        </section>
+                    <section id="reiniciar">
+                        <button id="boton-reiniciar">reiniciar</button>
+                    </section>
+                </div>
 
-        <section id="reiniciar">
-            <button id="boton-reiniciar">reiniciar</button>
+            <div> 
+                <div id="ataque-del-jugador"></div>
+                <div id="ataque-del-enemigo"></div>
+                <p>tu mascota <span id="mascota-jugador"></span> tiene <span id="vidas-jugador">3</span> vidas.</p>
+                <p>la mascota enemiga <span id="mascota-enemiga"></span> tiene <span id="vidas-enemigo">3</span> vidas.</p>
+            </div>
 
-        </section>
-        
+        </section>     
     </body>
 </html>
