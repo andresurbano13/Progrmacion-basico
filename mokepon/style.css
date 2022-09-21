@@ -32,7 +32,7 @@ body {
     margin-top: 28px;
 }
 
-.tarjetas{
+.tarjetas, .tarjetas-ataques{
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -46,7 +46,7 @@ body {
     padding: 0px;
     box-sizing: border-box;
     margin: 8px;
-    border: 1px solid #D800A6;
+    border: 1px solid #790252;
     border-radius: 20px;
     display: flex;
     color: white;
@@ -68,13 +68,17 @@ body {
     width: 95px;
     height: 38px;
     background: #400D51;
-    border: 1px solid #D800A6;
+    border: 1px solid #790252;
     border-width: medium;
     margin-top: 28px;
 }
 
 input {
     display: none;
+}
+
+input:checked + label {
+    background-color: #D800A6;
 }
 
 #seleccionar-ataque{
@@ -86,7 +90,7 @@ input {
     background-color: transparent;
     padding: 0px;
     box-sizing: border-box;
-    border: 1px solid #D800A6;
+    border: 1px solid #790252;
     width: 130px;
     height: 145px;
     margin: 8px;
@@ -105,10 +109,14 @@ input {
 }
 
 #mensajes {
-    width: 120px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    width: 156px;
+    height: 66px;
+    margin: 20px 20px;
+    color: white;
     background: #400D51;
-    padding: 20px;
-    border: double #D800A6;
+    padding: 7px;
+    border: double #790252;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -116,9 +124,45 @@ input {
 }
 
 #boton-reiniciar{
-    border: 1px solid #D800A6;
+    border: 1px solid #790252;
+    height: 32px;
+    font-size: 17px;
+    width: 79px;
+    display: flex;
     border-radius: 20px;
     color: #31E1F7;
     background-color: #400D51;
     font-family: 'ZCOOL QingKe HuangYou', cursive;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.ataques{
+    display: grid;
+    grid-template-columns: 100px 100px;
+    background-color: #790252;
+}
+
+.ataques-jugador, .ataques-enemigo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+
+#vidas-jugador, #vidas-enemigo{
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+}
+
+@media (max-width: 360px) {
+    .tarjetas{
+        flex-direction: column;
+    }
+
+    .tarjetas-ataques{
+        flex-direction: column;
+    }
 }

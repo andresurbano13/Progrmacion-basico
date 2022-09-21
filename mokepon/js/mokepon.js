@@ -1,48 +1,69 @@
+const sectionReiniciar = document.getElementById('boton-reiniciar')
+const sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+const buttonMascotaJugador = document.getElementById('boton-mascota')
+botonFuego = document.getElementById('boton-fuego')
+botonAgua = document.getElementById('boton-agua')
+botonTierra = document.getElementById('boton-tierra')
+botonReiniciar = document.getElementById("boton-reiniciar")
+
+const sectionmascota = document.getElementById('seleccionar-mascota')
+const inputlaquemona = document.getElementById('laquemona')
+const inputguaterlove = document.getElementById('guaterlove')
+const inputterron = document.getElementById('terron')
+const spanMascotaJugador = document.getElementById('mascota-jugador')
+const spanMascotaEnemigo = document.getElementById('mascota-enemiga')
+
+const spanVidasJugador = document.getElementById("vidas-jugador")
+const spanVidasEnemigo = document.getElementById("vidas-enemigo")
+
+const ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
+const sectionMensajes = document.getElementById('resultado')
+const ataqueDelJugador = document.getElementById('ataque-del-jugador')
+
+botonFuego = document.getElementById('boton-fuego')
+botonAgua = document.getElementById('boton-agua')
+botonTierra = document.getElementById('boton-tierra')
+
+
 let ataqueJugador
 let ataqueEnemigo
 let vidasJugador = 3
 let vidasEnemigo = 3
 
+class Liga{
+       constructor(nombre, foto, vida){
+              this.nombre = nombre
+              this.foto = foto
+              this.vida = vida
+       }
+}
+
+let laquemona = new Liga ('Laquemona', './assets/OIP.jpg', 5)
+let guaterlove = new Liga ('Guaterlove', './assets/pyke.jpg', 5)
+let terron = new Liga ('Terron', './assets/malpite.jpg', 5)
+
 function iniciarJuego() {
-       let sectionReiniciar = document.getElementById('boton-reiniciar')
        sectionReiniciar.style.display = 'none'
-
-       let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
        sectionSeleccionarAtaque.style.display = 'none'
-
-        let buttonMascotaJugador = document.getElementById('boton-mascota')
        buttonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
-       botonFuego = document.getElementById('boton-fuego')
        botonFuego.addEventListener('click',ataqueFuego)
-       botonAgua = document.getElementById('boton-agua')
        botonAgua.addEventListener('click', ataqueAgua)
-       botonTierra = document.getElementById('boton-tierra')
        botonTierra.addEventListener('click', ataqueTierra)
-
-       botonReiniciar = document.getElementById("boton-reiniciar")
+       
        botonReiniciar.addEventListener('click', reiniciarJuego)
 }
 
 function seleccionarMascotaJugador() {
-
-       let sectionmascota = document.getElementById('seleccionar-mascota')
        sectionmascota.style.display = 'none'
-
-       let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
        sectionSeleccionarAtaque.style.display = 'flex'
 
-   let inputdercharman = document.getElementById('dercharman')
-   let inputscuarul = document.getElementById('scuarul')
-   let inputsorbulba = document.getElementById('sorbulba')
-   let spanMascotaJugador = document.getElementById('mascota-jugador')
-
-   if (inputdercharman.checked){
-          spanMascotaJugador.innerHTML = 'dercharman'
-   } else if (inputscuarul.checked){
-          spanMascotaJugador.innerHTML = 'scuarul'
-   } else if (inputsorbulba.checked){
-          spanMascotaJugador.innerHTML = 'sorbulba'
+   if (inputlaquemona.checked){
+          spanMascotaJugador.innerHTML = 'laquemona'
+   } else if (inputguaterlove.checked){
+          spanMascotaJugador.innerHTML = 'guaterlove'
+   } else if (inputterron.checked){
+          spanMascotaJugador.innerHTML = 'terron'
    } else{
         alert('Elige una mascota')
    }
@@ -51,14 +72,13 @@ function seleccionarMascotaJugador() {
 
 function seleccionarMascotaEnemigo() {
        let mascotaenmigoAleatorio = aleatorio(1,3)
-       let spanMascotaEnemigo = document.getElementById('mascota-enemiga')
 
        if (mascotaenmigoAleatorio == 1){
-              spanMascotaEnemigo.innerHTML = 'dercharman'
+              spanMascotaEnemigo.innerHTML = 'laquemona'
        } else if (mascotaenmigoAleatorio == 2){
-              spanMascotaEnemigo.innerHTML = 'scuarul'
+              spanMascotaEnemigo.innerHTML = 'guaterlove'
        } else {
-              spanMascotaEnemigo.innerHTML = 'sorbulba'
+              spanMascotaEnemigo.innerHTML = 'terron'
        }
 
 }
@@ -96,9 +116,6 @@ function ataqueAleatorioEnemigo(){
 
 function combate(){
 
-       let spanVidasJugador = document.getElementById("vidas-jugador")
-       let spanVidasEnemigo = document.getElementById("vidas-enemigo")
-
        if(ataqueJugador == ataqueEnemigo) {
               crearMensaje("EMPATE")
        }  else if(ataqueJugador == 'FUEGO' && ataqueEnemigo == 'TIERRA') {
@@ -125,25 +142,21 @@ function combate(){
 
 function revisarVidas(){
        if (vidasJugador == 0){
-              crearMensajeFinal("Lo siento, Perdiste. 😔")
+              crearMensajeFinal("Lo siento, Perdiste.")
 
        } else if (vidasEnemigo == 0){
-              crearMensajeFinal("FELICITACIONES! Ganaste. 😁")
+              crearMensajeFinal("FELICITACIONES! Ganaste.")
               
        }
 }
 
 function crearMensaje(resultado){
-       let sectionMensajes = document.getElementById('resultado')
-       let ataqueDelJugador = document.getElementById('ataque-del-jugador')
-       let ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
-
        let nuevoAtaqueJugador = document.createElement('p')
        let nuevoAtaqueEnemigo = document.createElement('p')
 
        sectionMensajes.innerHTML = resultado
-       nuevoAtaqueJugador.innerHTML = ataqueDelJugador
-       nuevoAtaqueEnemigo.innerHTML = ataqueDelEnemigo
+       nuevoAtaqueJugador.innerHTML = ataqueJugador
+       nuevoAtaqueEnemigo.innerHTML = ataqueEnemigo
 
        // let parrafo = document.createElement('p')
        // parrafo.innerHTML = 'tu mascota ataco con ' + ataqueJugador + ', la mascota de tu enemigo ataco con ' + ataqueEnemigo + ' >' + combate
@@ -153,18 +166,12 @@ function crearMensaje(resultado){
 }
 
 function crearMensajeFinal(resuluadoFinal){
-       let sectionMensajes = document.getElementById('resultado')
-
        sectionMensajes.innerHTML = resuluadoFinal
 
-       botonFuego = document.getElementById('boton-fuego')
        botonFuego.disabled = true
-       botonAgua = document.getElementById('boton-agua')
        botonAgua.disabled = true
-       botonTierra = document.getElementById('boton-tierra')
        botonTierra.disabled = true
 
-       let sectionReiniciar = document.getElementById('boton-reiniciar')
        sectionReiniciar.style.display = 'block'
 }
 
