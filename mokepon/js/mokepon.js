@@ -7,9 +7,6 @@ botonTierra = document.getElementById('boton-tierra')
 botonReiniciar = document.getElementById("boton-reiniciar")
 
 const sectionmascota = document.getElementById('seleccionar-mascota')
-const inputlaquemona = document.getElementById('laquemona')
-const inputguaterlove = document.getElementById('guaterlove')
-const inputterron = document.getElementById('terron')
 const spanMascotaJugador = document.getElementById('mascota-jugador')
 const spanMascotaEnemigo = document.getElementById('mascota-enemiga')
 
@@ -19,14 +16,16 @@ const spanVidasEnemigo = document.getElementById("vidas-enemigo")
 const ataqueDelEnemigo = document.getElementById('ataque-del-enemigo')
 const sectionMensajes = document.getElementById('resultado')
 const ataqueDelJugador = document.getElementById('ataque-del-jugador')
+const contenedorTarjetas = document.getElementById('contenedorTarjetas')
 
-botonFuego = document.getElementById('boton-fuego')
-botonAgua = document.getElementById('boton-agua')
-botonTierra = document.getElementById('boton-tierra')
-
-
+let campeones = []
 let ataqueJugador
 let ataqueEnemigo
+let opcionDeCampeones
+let inputlaquemona
+let inputguaterlove
+let inputterron
+let mascotaJugdor
 let vidasJugador = 3
 let vidasEnemigo = 3
 
@@ -35,6 +34,7 @@ class Liga{
               this.nombre = nombre
               this.foto = foto
               this.vida = vida
+              this.ataques = []
        }
 }
 
@@ -42,8 +42,49 @@ let laquemona = new Liga ('Laquemona', './assets/OIP.jpg', 5)
 let guaterlove = new Liga ('Guaterlove', './assets/pyke.jpg', 5)
 let terron = new Liga ('Terron', './assets/malpite.jpg', 5)
 
+laquemona.ataques.push (
+       {nombre:'Fuego', id:'boton-fuego'},
+       {nombre:'Fuego', id:'boton-fuego'},
+       {nombre:'Fuego', id:'boton-fuego'},
+       {nombre:'Agua', id:'boton-agua'},
+       {nombre:'Tierra', id:'boton-tierra'}
+)
+
+guaterlove.ataques.push (
+       {nombre:'Agua', id:'boton-agua'},
+       {nombre:'Agua', id:'boton-agua'},
+       {nombre:'Agua', id:'boton-agua'},
+       {nombre:'Fuego', id:'boton-fuego'},
+       {nombre:'Tierra', id:'boton-tierra'}
+)
+
+terron.ataques.push (
+       {nombre:'Tierra', id:'boton-tierra'},
+       {nombre:'Tierra', id:'boton-tierra'},
+       {nombre:'Tierra', id:'boton-tierra'},
+       {nombre:'Agua', id:'boton-agua'},
+       {nombre:'Fuego', id:'boton-fuego'}
+)
+
+campeones.push (laquemona,guaterlove,terron)
+
 function iniciarJuego() {
        sectionReiniciar.style.display = 'none'
+
+       campeones.forEach((campeon) => {
+              opcionDeCampeones = `
+              <input type="radio" name="mascota" id=${campeon.nombre} />
+              <label class="tarjeta-de-mokepon" for=${campeon.nombre}>
+                  <p>${campeon.nombre}</p>
+                  <img src=${campeon.foto} alt="" srcset="">              
+              `
+              contenedorTarjetas.innerHTML += opcionDeCampeones
+
+        inputlaquemona = document.getElementById('Laquemona')
+        inputguaterlove = document.getElementById('Guaterlove')
+        inputterron = document.getElementById('Terron')
+       })
+
        sectionSeleccionarAtaque.style.display = 'none'
        buttonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
@@ -59,28 +100,37 @@ function seleccionarMascotaJugador() {
        sectionSeleccionarAtaque.style.display = 'flex'
 
    if (inputlaquemona.checked){
-          spanMascotaJugador.innerHTML = 'laquemona'
+          spanMascotaJugador.innerHTML = inputlaquemona.id
+          mascotaJugdor = inputlaquemona.id
    } else if (inputguaterlove.checked){
-          spanMascotaJugador.innerHTML = 'guaterlove'
+          spanMascotaJugador.innerHTML = inputguaterlove.id
+          mascotaJugdor = inputguaterlove.id
    } else if (inputterron.checked){
-          spanMascotaJugador.innerHTML = 'terron'
+          spanMascotaJugador.innerHTML = inputterron.id
+          mascotaJugdor = inputterron.id
    } else{
         alert('Elige una mascota')
    }
+
+       extraerAtaques(mascotaJugdor)
        seleccionarMascotaEnemigo()
 }
 
-function seleccionarMascotaEnemigo() {
-       let mascotaenmigoAleatorio = aleatorio(1,3)
-
-       if (mascotaenmigoAleatorio == 1){
-              spanMascotaEnemigo.innerHTML = 'laquemona'
-       } else if (mascotaenmigoAleatorio == 2){
-              spanMascotaEnemigo.innerHTML = 'guaterlove'
-       } else {
-              spanMascotaEnemigo.innerHTML = 'terron'
+function extraerAtaques(mascotaJugdor){
+       let ataques
+       for (let i = 0; i < campeones.length; i++) {
+              if (mascotaJugdor === campeones[i].nombre){
+                     ataques = campeones[i].ataques
+              }
+              
        }
+       mostrarAtques(ataques)
+}
 
+function seleccionarMascotaEnemigo() {
+       let mascotaenmigoAleatorio = aleatorio(0, campeones.length -1)
+
+       spanMascotaEnemigo.innerHTML = campeones[mascotaenmigoAleatorio].nombre
 }
 
 function ataqueFuego() {
