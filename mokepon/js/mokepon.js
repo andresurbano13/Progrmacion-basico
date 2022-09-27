@@ -53,27 +53,27 @@ let terron = new Liga('Terron', './assets/malpite.jpg', 5)
 
 
 guaterlove.ataques.push (
-       {nombre:'Agua', id:'boton-agua'},
-       {nombre:'Agua', id:'boton-agua'},
-       {nombre:'Agua', id:'boton-agua'},
-       {nombre:'Fuego', id:'boton-fuego'},
-       {nombre:'Tierra', id:'boton-tierra'}
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🌱', id:'boton-tierra'}
 )
 
 terron.ataques.push (
-       {nombre:'Tierra', id:'boton-tierra'},
-       {nombre:'Tierra', id:'boton-tierra'},
-       {nombre:'Tierra', id:'boton-tierra'},
-       {nombre:'Agua', id:'boton-agua'},
-       {nombre:'Fuego', id:'boton-fuego'}
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🔥', id:'boton-fuego'}
 )
 
 laquemona.ataques.push (
-       {nombre:'Fuego', id:'boton-fuego'},
-       {nombre:'Fuego', id:'boton-fuego'},
-       {nombre:'Fuego', id:'boton-fuego'},
-       {nombre:'Agua', id:'boton-agua'},
-       {nombre:'Tierra', id:'boton-tierra'}
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🌱', id:'boton-tierra'}
 )
 
 campeones.push (laquemona,guaterlove,terron)
@@ -135,40 +135,40 @@ function extraerAtaques(mascotaJugdor){
 
 function mostrarAtaques(ataques){
        ataques.forEach((ataque) => {
-              ataquesCampeon = `
-              <button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}
-                </button>
-              `
+                     ataquesCampeon = `
+                     <button id=${ataque.id} class="boton-de-ataque BAtaque">${ataque.nombre}</button>
+                     `
               contenedorAtaques.innerHTML += ataquesCampeon
        })
 
-        botonFuego = document.getElementById('boton-fuego')
-        botonAgua = document.getElementById('boton-agua')
-        botonTierra = document.getElementById('boton-tierra')
-        botones = document.querySelectorAll('.BAtaque')
+       botonFuego = document.getElementById('boton-fuego')
+       botonAgua = document.getElementById('boton-agua')
+       botonTierra = document.getElementById('boton-tierra')
+       botones = document.querySelectorAll('.BAtaque')
 }
 
-function secuenciaAtaque(){
-       botones.forEach ((boton) => {
-              boton.addEventListener('click', (e) => {
-                     if(e.target.textContent === 'Fuego') {
-                            ataqueJugador.push('FUEGO')
-                            console.log(ataqueJugador)
-                            boton.style.background = '#112f58'
-                            boton.disabled = true
-                     } else if (e.target.textContent === 'Agua'){
-                            console.log(ataqueJugador)
-                            boton.style.background = '#112f58'
-                            boton.disabled = true
-                     } else {
-                            ataqueJugador.push('Tierra')
-                            console.log(ataqueJugador)
-                            boton.style.background = '#112f58'
-                            boton.disabled = true
-                     }
-                     ataqueAleatorioEnemigo()
-              })
-       })
+function secuenciaAtaque() {
+    botones.forEach((boton) => {
+        boton.addEventListener('click', (e) => {
+            if (e.target.textContent === '🔥') {
+                ataqueJugador.push('FUEGO')
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true   
+            } else if (e.target.textContent === '💧'){
+                ataqueJugador.push('AGUA')
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true  
+            } else {
+                ataqueJugador.push('TIERRA')
+                console.log(ataqueJugador)
+                boton.style.background = '#112f58'
+                boton.disabled = true  
+            }
+            ataqueAleatorioEnemigo()
+        })
+    })
 }
 
 function seleccionarMascotaEnemigo() {
@@ -251,15 +251,15 @@ function revisarVidas(){
 }
 
 function crearMensaje(resultado){
-       let nuevoAtaqueJugador = document.createElement('p')
-       let nuevoAtaqueEnemigo = document.createElement('p')
+       let nuevoAtaqueDelJugador = document.createElement('p')
+       let nuevoAtaqueDelEnemigo = document.createElement('p')
 
        sectionMensajes.innerHTML = resultado
-       nuevoAtaqueJugador.innerHTML = indexAtaqueJugador
-       nuevoAtaqueEnemigo.innerHTML = indexAtaqueEnemigo
+       nuevoAtaqueDelJugador.innerHTML = indexAtaqueJugador
+       nuevoAtaqueDelEnemigo.innerHTML = indexAtaqueEnemigo
 
-       ataqueDelJugador.appendChild(nuevoAtaqueJugador)
-       ataqueDelEnemigo.appendChild(nuevoAtaqueEnemigo)
+       ataqueDelJugador.appendChild(nuevoAtaqueDelJugador)
+       ataqueDelEnemigo.appendChild(nuevoAtaqueDelEnemigo)
 }
 
 function crearMensajeFinal(resuluadoFinal){
