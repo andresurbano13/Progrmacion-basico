@@ -28,6 +28,7 @@ let inputlaquemona
 let inputguaterlove
 let inputterron
 let mascotaJugdor
+let mascotaJugdorObjeto
 let ataquesCampeon
 let ataquesCampeonEnemigo
 let botonFuego 
@@ -41,25 +42,44 @@ let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image()
+mapaBackground.src='./assets/grieta.png'
 
 class Liga{
-       constructor(nombre, foto, vida){
+       constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10){
               this.nombre = nombre
               this.foto = foto
               this.vida = vida
               this.ataques = []
-              this.x = 20
-              this.y = 30
-              this.ancho = 80
-              this.alto = 80
+              this.x = x
+              this.y = y
+              this.ancho = 60
+              this.alto = 60
               this.mapaFoto = new Image()
-              this.mapaFoto.src = foto
+              this.mapaFoto.src = fotoMapa
+              this.velocidadX = 0
+              this.velocidadY = 0
+       }
+
+       pintarCampeon(){
+              lienzo.drawImage(
+                     this.mapaFoto,
+                     this.x,
+                     this.y,
+                     this.ancho,
+                     this.alto
+              )
        }
 }
 
-let laquemona = new Liga('Laquemona', './assets/OIP.jpg', 5)
-let guaterlove = new Liga('Guaterlove', './assets/pyke.jpg', 5)
-let terron = new Liga('Terron', './assets/malpite.jpg', 5)
+let laquemona = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg')
+let guaterlove = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg')
+let terron = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg')
+
+let laquemonaEnemigo = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg', 80, 120)
+let guaterloveEnemigo = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg', 150, 95)
+let terronEnemigo = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg', 200, 190)
 
 
 guaterlove.ataques.push (
@@ -115,7 +135,6 @@ function iniciarJuego() {
 function seleccionarMascotaJugador() {
        sectionSeleccionarMascota.style.display = 'none'
        //sectionSeleccionarAtaque.style.display = 'flex'
-       sectionVerMapa.style.display = 'flex'
 
    if (inputlaquemona.checked){
           spanMascotaJugador.innerHTML = inputlaquemona.id
@@ -131,6 +150,8 @@ function seleccionarMascotaJugador() {
    }
 
        extraerAtaques(mascotaJugdor)
+       sectionVerMapa.style.display = 'flex'
+       iniciarMapa()
        seleccionarMascotaEnemigo()
 }
 
@@ -288,35 +309,83 @@ function aleatorio(min,max){
        return Math.floor(Math.random()*(max - min + 1) + min)
 }
 
-function pintarPersonaje(){
+function pintarCanvas(){
+
+       mascotaJugdorObjeto.x = mascotaJugdorObjeto.x + mascotaJugdorObjeto.velocidadX
+       mascotaJugdorObjeto.y = mascotaJugdorObjeto.y + mascotaJugdorObjeto.velocidadY
        lienzo.clearRect(0, 0, mapa.width, mapa.height)
        lienzo.drawImage(
-              laquemona.mapaFoto,
-              laquemona.x,
-              laquemona.y,
-              laquemona.ancho,
-              laquemona.alto
+              mapaBackground,
+              0,
+              0,
+              mapa.width,
+              mapa.height
        )
+       mascotaJugdorObjeto.pintarCampeon()
+       laquemonaEnemigo.pintarCampeon()
+       guaterloveEnemigo.pintarCampeon()
+       terronEnemigo.pintarCampeon()
 }
 
-function moverLaquemonaDerecha(){
-       laquemona.x = laquemona.x + 5
-       pintarPersonaje()
+function moverDerecha(){
+       mascotaJugdorObjeto.velocidadX = 5
 }
 
-function moverLaquemonaAbajo(){
-       laquemona.y = laquemona.y + 5
-       pintarPersonaje()
+function moverAbajo(){
+       mascotaJugdorObjeto.velocidadY = 5
 }
 
-function moverLaquemonaIzquierda(){
-       laquemona.x = laquemona.x + -5
-       pintarPersonaje()
+function moverIzquierda(){
+       mascotaJugdorObjeto.velocidadX = -5
 }
 
-function moverLaquemonaArriba(){
-       laquemona.y = laquemona.y + -5
-       pintarPersonaje()
+function moverArriba(){
+       mascotaJugdorObjeto.velocidadY = -5
 }
+
+function detenerMovimiento(){
+       mascotaJugdorObjeto.velocidadX = 0
+       mascotaJugdorObjeto.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event){
+       switch (event.key) {
+              case 'w':
+                     moverArriba()
+                     break
+              case 's':
+                     moverAbajo()
+                     break
+              case 'a':
+                     moverIzquierda()
+                     break
+              case 'd':
+                     moverDerecha()
+                     break
+              default:
+                     break;
+       }
+}
+
+function iniciarMapa(){
+       mapa.width = 1000
+       mapa.height = 1000
+       mascotaJugdorObjeto = obtenerObjetoMascota(mascotaJugdor)
+       intervalo = setInterval(pintarCanvas, 50)
+
+       window.addEventListener('keydown', sePresionoUnaTecla)
+       window.addEventListener('keyup', detenerMovimiento)
+}
+
+function obtenerObjetoMascota(){
+       for (let i = 0; i < campeones.length; i++) {
+              if (mascotaJugdor === campeones[i].nombre){
+                     ataques = campeones[i].ataques
+                     return campeones[i]
+              }
+              
+       }
+}
+
 
 window.addEventListener('load', iniciarJuego)
