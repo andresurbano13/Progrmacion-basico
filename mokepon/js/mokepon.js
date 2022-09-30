@@ -44,7 +44,18 @@ let vidasEnemigo = 3
 let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
-mapaBackground.src='./assets/grieta.png'
+mapaBackground.src='./assets/Grieta.jpg'
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoMapa = 700
+
+if (anchoDelMapa > anchoMaximoMapa){
+       anchoDelMapa = anchoMaximoMapa - 20
+}
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
 
 class Liga{
        constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10){
@@ -77,12 +88,20 @@ let laquemona = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg')
 let guaterlove = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg')
 let terron = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg')
 
-let laquemonaEnemigo = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg', 80, 120)
-let guaterloveEnemigo = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg', 150, 95)
-let terronEnemigo = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg', 200, 190)
+let laquemonaEnemigo = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg', 120, 385)
+let guaterloveEnemigo = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg', 430, 95)
+let terronEnemigo = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg', 450, 300)
 
 
 guaterlove.ataques.push (
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🌱', id:'boton-tierra'}
+)
+
+guaterloveEnemigo.ataques.push (
        {nombre:'💧', id:'boton-agua'},
        {nombre:'💧', id:'boton-agua'},
        {nombre:'💧', id:'boton-agua'},
@@ -98,7 +117,23 @@ terron.ataques.push (
        {nombre:'🔥', id:'boton-fuego'}
 )
 
+terronEnemigo.ataques.push (
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'🌱', id:'boton-tierra'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🔥', id:'boton-fuego'}
+)
+
 laquemona.ataques.push (
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'🔥', id:'boton-fuego'},
+       {nombre:'💧', id:'boton-agua'},
+       {nombre:'🌱', id:'boton-tierra'}
+)
+
+laquemonaEnemigo.ataques.push (
        {nombre:'🔥', id:'boton-fuego'},
        {nombre:'🔥', id:'boton-fuego'},
        {nombre:'🔥', id:'boton-fuego'},
@@ -134,7 +169,6 @@ function iniciarJuego() {
 
 function seleccionarMascotaJugador() {
        sectionSeleccionarMascota.style.display = 'none'
-       //sectionSeleccionarAtaque.style.display = 'flex'
 
    if (inputlaquemona.checked){
           spanMascotaJugador.innerHTML = inputlaquemona.id
@@ -152,7 +186,6 @@ function seleccionarMascotaJugador() {
        extraerAtaques(mascotaJugdor)
        sectionVerMapa.style.display = 'flex'
        iniciarMapa()
-       seleccionarMascotaEnemigo()
 }
 
 function extraerAtaques(mascotaJugdor){
@@ -325,6 +358,12 @@ function pintarCanvas(){
        laquemonaEnemigo.pintarCampeon()
        guaterloveEnemigo.pintarCampeon()
        terronEnemigo.pintarCampeon()
+       if (mascotaJugdorObjeto.velocidadX !==0 || 
+              mascotaJugdorObjeto.velocidadY !==0){
+                     revisarColision(laquemonaEnemigo)
+                     revisarColision(guaterloveEnemigo)
+                     revisarColision(terronEnemigo)
+              }
 }
 
 function moverDerecha(){
@@ -368,8 +407,6 @@ function sePresionoUnaTecla(event){
 }
 
 function iniciarMapa(){
-       mapa.width = 1000
-       mapa.height = 1000
        mascotaJugdorObjeto = obtenerObjetoMascota(mascotaJugdor)
        intervalo = setInterval(pintarCanvas, 50)
 
@@ -387,5 +424,34 @@ function obtenerObjetoMascota(){
        }
 }
 
+function revisarColision(enemigo){
+       const arribaEnemigo = enemigo.y
+       const abajoEnemigo = enemigo.y + enemigo.alto
+       const derechaEnemigo = enemigo.x + enemigo.ancho
+       const izquierdaEnemigo = enemigo.x
+
+       const arribaMascota = 
+              mascotaJugdorObjeto.y
+       const abajoMascota = 
+              mascotaJugdorObjeto.y + mascotaJugdorObjeto.alto
+       const derechaMascota = 
+              mascotaJugdorObjeto.x + mascotaJugdorObjeto.ancho
+       const izquierdaMascota = 
+              mascotaJugdorObjeto.x
+
+       if(
+              abajoMascota < arribaEnemigo ||
+              arribaMascota > abajoEnemigo ||
+              derechaMascota < izquierdaEnemigo ||
+              izquierdaMascota > derechaEnemigo 
+       ){
+              return
+       }
+       detenerMovimiento()
+       clearInterval(intervalo)
+       sectionSeleccionarAtaque.style.display = 'flex'
+       sectionVerMapa.style.display = 'none'
+       seleccionarMascotaEnemigo(enemigo)
+}
 
 window.addEventListener('load', iniciarJuego)

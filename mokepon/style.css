@@ -16,7 +16,7 @@ body {
 .titulo {
     font-family: 'Press Start 2P', cursive;
     color:#31E1F7;
-    font-size: 32px;
+    font-size: 20px;
     display: flex;
     justify-content: center;
     margin: 34px;
@@ -163,16 +163,37 @@ input:checked + label {
     justify-content: center;
 }
 
-#mapa{
-    border: 2px solid white;
+#ver-mapa button{
+    background-color: transparent;
+    padding: 0px;
+    box-sizing: border-box;
+    border: 1px solid #790252;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    color: white;
+    flex-direction: column-reverse;
+    align-items: center;
+    border-width: medium;
+    justify-content: center;
+    display: inline-flex;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 500px) {
     .tarjetas{
         flex-direction: column;
     }
 
     .tarjetas-ataques{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 300px) {
+    #ver-mapa div{
+        display: flex;
+        align-items: center;
         flex-direction: column;
     }
 }
