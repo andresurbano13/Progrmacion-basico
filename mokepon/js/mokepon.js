@@ -20,6 +20,7 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 
+let jugadorId = null
 let campeones = []
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -88,58 +89,15 @@ let laquemona = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg')
 let guaterlove = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg')
 let terron = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg')
 
-let laquemonaEnemigo = new Liga('Laquemona', './assets/OIP.jpg', 5, './assets/OIP.jpg', 120, 385)
-let guaterloveEnemigo = new Liga('Guaterlove', './assets/pyke.jpg', 5, './assets/pyke.jpg', 430, 95)
-let terronEnemigo = new Liga('Terron', './assets/malpite.jpg', 5, './assets/malpite.jpg', 450, 300)
+const GUATERLOVE_ATAQUES=[{nombre:'💧',id:'boton-agua'},{nombre:'💧',id:'boton-agua'},{nombre:'💧',id:'boton-agua'},{nombre:'🔥',id:'boton-fuego'},{nombre:'🌱',id:'boton-tierra'},]
 
+guaterlove.ataques.push(...GUATERLOVE_ATAQUES)
+const TERRON_ATAQUES=[{nombre:'🌱',id:'boton-tierra'},{nombre:'🌱',id:'boton-tierra'},{nombre:'🌱',id:'boton-tierra'},{nombre:'💧',id:'boton-agua'},{nombre:'🔥',id:'boton-fuego'},]
 
-guaterlove.ataques.push (
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🌱', id:'boton-tierra'}
-)
+terron.ataques.push(...TERRON_ATAQUES)
+const LAQUEMONA_ATAQUES=[{nombre:'🔥',id:'boton-fuego'},{nombre:'🔥',id:'boton-fuego'},{nombre:'🔥',id:'boton-fuego'},{nombre:'💧',id:'boton-agua'},{nombre:'🌱',id:'boton-tierra'},]
 
-guaterloveEnemigo.ataques.push (
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🌱', id:'boton-tierra'}
-)
-
-terron.ataques.push (
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🔥', id:'boton-fuego'}
-)
-
-terronEnemigo.ataques.push (
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'🌱', id:'boton-tierra'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🔥', id:'boton-fuego'}
-)
-
-laquemona.ataques.push (
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🌱', id:'boton-tierra'}
-)
-
-laquemonaEnemigo.ataques.push (
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'🔥', id:'boton-fuego'},
-       {nombre:'💧', id:'boton-agua'},
-       {nombre:'🌱', id:'boton-tierra'}
-)
+laquemona.ataques.push(...LAQUEMONA_ATAQUES)
 
 campeones.push (laquemona,guaterlove,terron)
 
@@ -169,17 +127,18 @@ function iniciarJuego() {
        unirseAlJuego()
 }
 
-function unirseAlJuego(){
+function unirseAlJuego() {
        fetch("http://localhost:8080/unirse")
-              .then(function(res){
-                     if (res.ok) {
-                            res.text()
-                                   .then(function(respuesta){
-                                          console.log(respuesta)
-                                   })
-                     }
-              })
-}
+           .then(function (res) {
+               if (res.ok) {
+                   res.text()
+                       .then(function (respuesta) {
+                           console.log(respuesta)
+                           jugadorId = respuesta
+                       })
+               }
+           })
+}   
 
 function seleccionarMascotaJugador() {
        sectionSeleccionarMascota.style.display = 'none'
@@ -197,10 +156,19 @@ function seleccionarMascotaJugador() {
         alert('Elige una mascota')
    }
 
+       seleccionarMokepon(mascotaJugdor)
+
        extraerAtaques(mascotaJugdor)
        sectionVerMapa.style.display = 'flex'
        iniciarMapa()
 }
+
+function seleccionarMokepon(mascotaJugador)
+       {fetch(`http://localhost:8080/mokepon/${jugadorId}`,
+       {method:"post",headers:{"Content-Type":"application/json"},
+       body:JSON.stringify({mokepon:mascotaJugador})
+       }
+)}
 
 function extraerAtaques(mascotaJugdor){
        let ataques
@@ -369,6 +337,9 @@ function pintarCanvas(){
               mapa.height
        )
        mascotaJugdorObjeto.pintarCampeon()
+
+       enviarPosicion(mascotaJugdorObjeto.x, mascotaJugdorObjeto.y)
+
        laquemonaEnemigo.pintarCampeon()
        guaterloveEnemigo.pintarCampeon()
        terronEnemigo.pintarCampeon()
@@ -379,6 +350,14 @@ function pintarCanvas(){
                      revisarColision(terronEnemigo)
               }
 }
+
+function enviarPosicion(x,y){fetch(`http://localhost:8080/mokepon/${jugadorId}/posicion`,{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({x,y})}).then(function(res){if(res.ok){res.json().then(function({enemigos}){console.log(enemigos)
+enemigos.forEach(function(enemigo){let mokeponEnemigo=null
+const mokeponNombre=enemigo.mokepon.nombre||""
+if(mokeponNombre==="Hipodoge"){mokeponEnemigo=new Mokepon('Hipodoge','./assets/mokepons_mokepon_hipodoge_attack.png',5,'./assets/hipodoge.png')}else if(mokeponNombre==="Capipepo"){mokeponEnemigo=new Mokepon('Capipepo','./assets/mokepons_mokepon_capipepo_attack.png',5,'./assets/capipepo.png')}else if(mokeponNombre==="Ratigueya"){mokeponEnemigo=new Mokepon('Ratigueya','./assets/mokepons_mokepon_ratigueya_attack.png',5,'./assets/ratigueya.png')}
+mokeponEnemigo.x=enemigo.x
+mokeponEnemigo.y=enemigo.y
+mokeponEnemigo.pintarMokepon()})})}})}
 
 function moverDerecha(){
        mascotaJugdorObjeto.velocidadX = 5
