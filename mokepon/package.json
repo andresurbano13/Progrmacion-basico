@@ -1,0 +1,22 @@
+{
+  "name": "mokepon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresurbano13/Progrmacion-basico.git"
+  },
+  "author": "Andres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andresurbano13/Progrmacion-basico/issues"
+  },
+  "homepage": "https://github.com/andresurbano13/Progrmacion-basico#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
