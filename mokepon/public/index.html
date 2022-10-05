@@ -23,11 +23,27 @@
         <section id="ver-mapa">
             <h2 class="subtitulo">Recorre el mapa con tu campeon</h2>
             <canvas id="mapa"></canvas>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">⬆️</button>
+            <button onmouseup="detenerMovimiento()"
+                    ontouchend="detenerMovimiento()"
+                    ontouchstart="moverArriba()"
+                    onmousedown="moverArriba()">⬆️
+            </button>
             <div>
-                <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">⬅️</button>
-                <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">⬇️</button> 
-                <button onmouseup="detenerMovimiento()" onmousedown="moverDerecha()">➡️</button> 
+                <button onmouseup="detenerMovimiento()"
+                        ontouchend="detenerMovimiento()" 
+                        ontouchstart="moverIzquierda()"
+                        onmousedown="moverIzquierda()">⬅️
+                    </button>
+                <button onmouseup="detenerMovimiento()"
+                        ontouchend="detenerMovimiento()"
+                        ontouchstart="moverAbajo()"
+                        onmousedown="moverAbajo()">⬇️
+                    </button> 
+                <button onmouseup="detenerMovimiento()"
+                        ontouchend="detenerMovimiento()"
+                        ontouchstart="moverDerecha()"
+                        onmousedown="moverDerecha()">➡️
+                    </button> 
             </div>
         </section>
         
