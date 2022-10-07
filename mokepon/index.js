@@ -49,7 +49,7 @@ app.get("/unirse", (req, res) => {
 
 
 
-app.post("/mokepon/:jugadorId/posicion", (req, res) => {
+app.post("http//192.168.10.20:8080/mokepon/:jugadorId/posicion", (req, res) => {
   const jugadorId = req.params.jugadorId || ""
   const x = req.body.x || 0
   const y = req.body.y || 0
@@ -80,7 +80,7 @@ app.post("http//192.168.10.20:8080/mokepon/:jugadorId/ataques", (req, res) => {
   res.end()
 })
 
-app.get("/mokepon/:jugadorId/ataques",(req,res)=> {
+app.get("http//192.168.10.20:8080/mokepon/:jugadorId/ataques",(req,res)=> {
   const jugadorId = req.params.jugadorId || ""
   const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
   res.end ({
